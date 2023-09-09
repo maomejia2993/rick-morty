@@ -108,6 +108,7 @@ function App() {
 
   return (
     <Box bgColor="#05292e">
+    <Heading color='white'>Probando a agregar un cambio</Heading>
       <Box
         h="350px"
         w="99vw"
