@@ -25,7 +25,7 @@ const CharPage = ({filterBy, hasError, apiResponse}) => {
       ) : (
         <Box>
           <Heading mt="50px" color="white" textAlign="center">
-            realiza una busqueda
+            --
           </Heading>
         </Box>
       )}</>

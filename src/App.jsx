@@ -117,8 +117,8 @@ function App() {
         bgRepeat="no-repeat"
       ></Box>
       <Box display="flex" w="100%" justifyContent="center" alignItems="center">
-        <FormControl as="form" w="30em" onSubmit={handleSubmit}>
-          <InputGroup mt="50px" w="100%" position="relative" gap="">
+        <FormControl as="form" w="30em" onSubmit={handleSubmit} display='grid' placeItems='center'  >
+          <InputGroup mt="50px" w="80%">
             <Input
               w="50%"
               borderLeftRadius="10px"
