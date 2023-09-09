@@ -58,7 +58,7 @@ const Cards = ({ planetInfo, index}) => {
           borderRightRadius="10px"
         >
           {" "}
-          <Circle bg={resident.status=== "Dead" ? 'red' : 'green'} w="3" h="3"></Circle> 
+          <Circle bg={resident.status=== "Dead" && 'red' || resident.status=== "Alive" && 'green' ||  resident.status=== "unknown" && 'gray'} w="3" h="3"></Circle> 
           <Text color='black'>{resident.status}</Text>
         </Box>
   

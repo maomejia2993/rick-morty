@@ -108,7 +108,6 @@ function App() {
 
   return (
     <Box bgColor="#05292e">
-    <Heading color='white'>Probando a agregar un cambio</Heading>
       <Box
         h="350px"
         w="99vw"
@@ -178,7 +177,7 @@ function App() {
         </FormControl>
       </Box>
       {/* Render the page for the ID search */}
-      <IdPage apiResponse={apiResponse}   />
+      <IdPage apiResponse={apiResponse} filterBy={filterBy}  searchValue={searchValue}   />
       {/* Render the page for the Charname search */}
       <CharPage filterBy={filterBy} hasError={hasError} apiResponse={apiResponse} />
     </Box>

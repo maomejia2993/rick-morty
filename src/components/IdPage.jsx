@@ -14,7 +14,7 @@ import {
 const IdPage = ( { apiResponse, filterBy  } ) => {
   return (
     <>
-           {filterBy === "id_search" && apiResponse ? (
+           {apiResponse ? (
             
             <Box
               id="Location_info"
@@ -31,34 +31,39 @@ const IdPage = ( { apiResponse, filterBy  } ) => {
                 boxShadow="2px 2px 5px black"
                 borderRadius="25px"
                 pt="20px"
+                position="relative"
               >
+                
                 <Heading textAlign="center" mb="15px" color="green.500">
-                  {apiResponse.name}
+                  {filterBy === 'id_search' && apiResponse.name}
                 </Heading>
                 <Box display="flex" justifyContent="space-evenly" gap="">
                   <Box display="flex" flexDirection="column">
                     <Heading fontSize="16px" mb="5px">
-                      Type
+                    { filterBy === 'id_search' ?  'Type' : 'Results'}
                     </Heading>
-                    <Text>{apiResponse.type}</Text>
+                    <Text>{ filterBy === 'id_search' ?  apiResponse.type: apiResponse?.info?.count}</Text>
                   </Box>
                   <Box display="flex" flexDirection="column">
                     <Heading fontSize="16px" mb="5px">
-                      Dimension
+                      { filterBy === 'id_search' ?  'Dimension' : 'Pages'}
                     </Heading>
-                    <Text>{apiResponse.dimension}</Text>
+                    <Text>{filterBy === 'id_search' ?  apiResponse.dimension: apiResponse?.info?.pages}</Text>
                   </Box>
                   <Box display="flex" flexDirection="column">
                     <Heading fontSize="16px" mb="5px">
-                      Population
+                    { filterBy === 'id_search' ?  'Population' : 'Displaying'}
                     </Heading>
-                    <Text>{apiResponse?.residents?.length}</Text>
+                    <Text>{filterBy === 'id_search' ?  apiResponse?.residents?.length : apiResponse?.results?.length}</Text>
+                    
                   </Box>
+                  
                 </Box>
+                <Text textAlign='center' position='absolute' bottom='2' left='0' right='0' fontSize='15p'>{filterBy === 'id_search' ? 'To search by id please enter a number between 1 and 126' : 'To search by character name please enter a name'}</Text>
               </Box>
             </Box>
           ) : (
-            <p>no hay respuesta aun</p>
+            <Text color='white'>There's an error trying to fetch this data.</Text>
           )}
           {apiResponse && apiResponse?.residents?.length > 0 ? (
             <Grid
@@ -89,10 +94,9 @@ const IdPage = ( { apiResponse, filterBy  } ) => {
               </AnimatePresence>
             </Grid>
           ) : (
-            <Heading textAlign="center" color="white" marginX="25px" mt="150px">
-              Unfortunately there are not results for this search yet, please
-              try to search for a different location.
-            </Heading>
+            <Box textAlign="center" color="white" marginX="5px" mt="5px">
+              
+            </Box>
           )}
           {apiResponse?.residents?.length > 4 && (
             <Box color="white" w="99vw" pb="25px">
