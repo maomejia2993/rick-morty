@@ -108,6 +108,13 @@ function App() {
           };
           setErrorDisplayed(newErrorDisplay);
         }
+        setSearchValue(value);
+        let newSectionDisplayed = {
+          paginationIndicator: 1,
+          start: 0,
+          end: 8,
+        };
+        setSectionDisplayed(newSectionDisplayed);
         break;
       default:
         break;
@@ -164,6 +171,12 @@ function App() {
   const realtimeSearch = (e) => { 
     const value = e.target.value;
     setSearchValue(value);
+    let newSectionDisplayed = {
+      paginationIndicator: 1,
+      start: 0,
+      end: 8,
+    };
+    setSectionDisplayed(newSectionDisplayed);
     console.log(value);
    }
 
