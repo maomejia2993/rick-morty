@@ -15,7 +15,8 @@ import useFetch from "../hooks/useFetch";
 
 const Cards = ({ planetInfo, index}) => {
 
-  const url = planetInfo.residents[index];
+  console.log(planetInfo)
+  const url = planetInfo?.residents[index];
   const [resident, getResident ] = useFetch(url)
 
   useEffect(() =>{

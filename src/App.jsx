@@ -180,13 +180,14 @@ function App() {
               list="locations"
               id="options"
             />
-            <datalist id="locations">
+            
+           <Box as='div' bgColor='red'> <datalist id="locations" >
   {apiResponse?.results?.map((location, index) => (
-    <option key={index} value={location.name}>
-      {location.name}
-    </option>
+    <option key={index} value={location.name} style={{backgrounColor:'red', height:'500px'}} >
+    {location.name}
+  </option>
   ))}
-</datalist>
+</datalist></Box>
             <Select
               onChange={(e) => handleSelectOnChange(e)}
               as="select"
@@ -247,6 +248,7 @@ function App() {
         filterBy={filterBy}
         hasError={hasError}
         apiResponse={apiResponse}
+        sectionDisplayed={sectionDisplayed}
       />
     </Box>
   );
