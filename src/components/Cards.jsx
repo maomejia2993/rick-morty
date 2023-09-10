@@ -44,7 +44,7 @@ const Cards = ({ planetInfo, index}) => {
         />
         <Box
           position="absolute"
-          top="100"
+          top="7"
           display="flex"
           alignItems="center"
           gap="5px"
