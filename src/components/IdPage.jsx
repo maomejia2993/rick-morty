@@ -1,15 +1,16 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 import { Wrap, WrapItem } from "@chakra-ui/react";
-import { Grid, GridItem, Center } from "@chakra-ui/react";
+import { Center } from "@chakra-ui/react";
 import Cards from "./Cards.jsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { GoTriangleLeft, GoTriangleRight } from "react-icons/go";
 
-const IdPage = ({ apiResponse, filterBy }) => {
+const IdPage = ({ apiResponse, filterBy, sectionDisplayed, increaseSectionDisplayed, decreseSectionDisplayed,   }) => {
   return (
     <>
       {apiResponse ? (
         <Box
+        
           id="Location_info"
           color="white"
           display="grid"
@@ -71,7 +72,7 @@ const IdPage = ({ apiResponse, filterBy }) => {
             >
               {filterBy === "id_search"
                 ? <Text fontSize='14px' px='25px'>"To search by id please enter a number between 1 and 126"</Text>
-                : <Text fontSize='14px' px='25px'>"To search by character name please enter a name"</Text> }
+                : <Text fontSize='14px' px='25px'>"To search by Location name please enter a name"</Text> }
             </Text>
           </Box>
         </Box>
@@ -87,15 +88,15 @@ const IdPage = ({ apiResponse, filterBy }) => {
                 .map((_, index) => (
                   <WrapItem
                     as={motion.div}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    initial={{ x: 150 }}
+                    animate={{ x: 0 }}
                     key={index}
                   >
                     <Center>
                       <Cards planetInfo={apiResponse} index={index} />
                     </Center>
                   </WrapItem>
-                ))}
+                )).slice(sectionDisplayed.start, sectionDisplayed.end)}
             </AnimatePresence>
           </Wrap>
         </Center>
@@ -105,15 +106,16 @@ const IdPage = ({ apiResponse, filterBy }) => {
       {apiResponse?.residents?.length > 4 && (
         <Box color="white" w="99vw" pb="25px">
           <Box
+          mt='50px'
             id="pagination"
             display="flex"
             justifyContent="center"
             gap="15px"
           >
-            <GoTriangleLeft fontSize="2em" cursor="pointer" />
+            <Center><GoTriangleLeft fontSize="3em" cursor="pointer"  onClick={decreseSectionDisplayed}/></Center>
             <Box display="flex">
-              <Box
-                w="25px"
+              <Center
+                w="45px"
                 display="grid"
                 placeItems="center"
                 aspectRatio="1"
@@ -122,10 +124,10 @@ const IdPage = ({ apiResponse, filterBy }) => {
                 lineHeight="1"
                 fontSize="2em"
               >
-                1
-              </Box>
+                {sectionDisplayed.paginationIndicator}
+              </Center>
             </Box>
-            <GoTriangleRight fontSize="2em" cursor="pointer" />
+            <Center><GoTriangleRight fontSize="3em" cursor="pointer" onClick={increaseSectionDisplayed} /></Center>
           </Box>{" "}
         </Box>
       )}

@@ -1,21 +1,16 @@
 import {
   Box,
-  Button,
   Card,
   CardBody,
   CardFooter,
   Heading,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
   Image,
   Stack,
   Text,
   Circle,
 } from "@chakra-ui/react";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import useFetch from "../hooks/useFetch";
 
 const Cards = ({ planetInfo, index}) => {
