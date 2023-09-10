@@ -14,12 +14,12 @@ const CharPage = ({filterBy, hasError, apiResponse}) => {
           >
             <Heading>Look for a character by name</Heading>
           </Box>
-          <Text>Nombre:</Text>
+          <Text>Name:</Text>
           <Box color="white">
-           
+                  
             {!hasError ? apiResponse?.results.map((char, index) => (
               <Box key={index}>{char.name}</Box>
-            )) : <Text color="red">There are no results</Text> }
+            )) : <Text color="red">There are no results 😓</Text> }
           </Box>
         </Box>
       ) : (
