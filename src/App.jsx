@@ -13,7 +13,6 @@ import bgRickAndMorty from "./assets/wp3277657-rick-and-morty-4k-wallpapers.jpg"
 import useFetch from "./hooks/useFetch";
 import getRandomNumber from "./functions/getRandomNumber";
 import IdPage from "./components/IdPage";
-import CharPage from "./components/CharPage";
 
 function App() {
   const inputRef = useRef();
@@ -55,6 +54,12 @@ function App() {
   const handleSelectOnChange = (e) => {
     const value = e.target.value;
     setFilterBy(value);
+    let newSectionDisplayed = {
+      paginationIndicator: 1,
+      start: 0,
+      end: 8,
+    };
+    setSectionDisplayed(newSectionDisplayed);
     setSearchValue('')
     console.log(value);
   };
@@ -119,13 +124,29 @@ function App() {
   };
 
   const increaseSectionDisplayed = () => {
-    if (sectionDisplayed.end < apiResponse?.residents?.length + 1) {
-      let newSectionDisplayed = {
-        paginationIndicator: sectionDisplayed.paginationIndicator + 1,
-        start: sectionDisplayed.start + 8,
-        end: sectionDisplayed.end + 8,
-      };
-      setSectionDisplayed(newSectionDisplayed);
+    switch (filterBy) {
+      case 'id_search':
+        if (sectionDisplayed.end < apiResponse?.residents?.length + 1) {
+          let newSectionDisplayed = {
+            paginationIndicator: sectionDisplayed.paginationIndicator + 1,
+            start: sectionDisplayed.start + 8,
+            end: sectionDisplayed.end + 8,
+          };
+          setSectionDisplayed(newSectionDisplayed);
+        }
+        break;
+        case 'name_search':
+          if (sectionDisplayed.end < apiResponse?.results[0]?.residents?.length + 1) {
+            let newSectionDisplayed = {
+              paginationIndicator: sectionDisplayed.paginationIndicator + 1,
+              start: sectionDisplayed.start + 8,
+              end: sectionDisplayed.end + 8,
+            };
+            setSectionDisplayed(newSectionDisplayed);
+          }
+          break;
+      default:
+        break;
     }
   };
 
@@ -242,13 +263,7 @@ function App() {
         sectionDisplayed={sectionDisplayed}
         increaseSectionDisplayed={increaseSectionDisplayed}
         decreseSectionDisplayed={decreseSectionDisplayed}
-      />
-      {/* Render the page for the Charname search */}
-      <CharPage
-        filterBy={filterBy}
         hasError={hasError}
-        apiResponse={apiResponse}
-        sectionDisplayed={sectionDisplayed}
       />
     </Box>
   );
