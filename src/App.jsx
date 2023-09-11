@@ -17,7 +17,6 @@ import IdPage from "./components/IdPage";
 function App() {
   const inputRef = useRef();
 
- 
   const [inputValue, setInputValue] = useState("");
   const [searchValue, setSearchValue] = useState(getRandomNumber(126));
   const [filterBy, setFilterBy] = useState("id_search");
@@ -42,13 +41,12 @@ function App() {
   }, [searchValue]);
 
   useEffect(() => {
-    inputRef.current.focus(); 
+    inputRef.current.focus();
   }, []);
 
   const handleOnChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
-    console.log(value);
   };
 
   const handleSelectOnChange = (e) => {
@@ -60,8 +58,7 @@ function App() {
       end: 8,
     };
     setSectionDisplayed(newSectionDisplayed);
-    setSearchValue('')
-    console.log(value);
+    setSearchValue("");
   };
 
   const handleSubmit = (e) => {
@@ -75,7 +72,7 @@ function App() {
             name_search: false,
           };
           setErrorDisplayed(newErrorDisplay);
-          console.log(inputValue);
+
           let newSectionDisplayed = {
             paginationIndicator: 1,
             start: 0,
@@ -88,7 +85,6 @@ function App() {
             name_search: false,
           };
           setErrorDisplayed(newErrorDisplay);
-          
         }
         break;
       case "name_search":
@@ -99,8 +95,6 @@ function App() {
             name_search: false,
           };
           setErrorDisplayed(newErrorDisplay);
-          console.log(inputValue);
-          console.log(apiResponse);
         } else {
           const newErrorDisplay = {
             id_search: false,
@@ -132,7 +126,7 @@ function App() {
 
   const increaseSectionDisplayed = () => {
     switch (filterBy) {
-      case 'id_search':
+      case "id_search":
         if (sectionDisplayed.end < apiResponse?.residents?.length + 1) {
           let newSectionDisplayed = {
             paginationIndicator: sectionDisplayed.paginationIndicator + 1,
@@ -142,16 +136,19 @@ function App() {
           setSectionDisplayed(newSectionDisplayed);
         }
         break;
-        case 'name_search':
-          if (sectionDisplayed.end < apiResponse?.results[0]?.residents?.length + 1) {
-            let newSectionDisplayed = {
-              paginationIndicator: sectionDisplayed.paginationIndicator + 1,
-              start: sectionDisplayed.start + 8,
-              end: sectionDisplayed.end + 8,
-            };
-            setSectionDisplayed(newSectionDisplayed);
-          }
-          break;
+      case "name_search":
+        if (
+          sectionDisplayed.end <
+          apiResponse?.results[0]?.residents?.length + 1
+        ) {
+          let newSectionDisplayed = {
+            paginationIndicator: sectionDisplayed.paginationIndicator + 1,
+            start: sectionDisplayed.start + 8,
+            end: sectionDisplayed.end + 8,
+          };
+          setSectionDisplayed(newSectionDisplayed);
+        }
+        break;
       default:
         break;
     }
@@ -167,8 +164,8 @@ function App() {
       setSectionDisplayed(newSectionDisplayed);
     }
   };
-  
-  const realtimeSearch = (e) => { 
+
+  const realtimeSearch = (e) => {
     const value = e.target.value;
     setSearchValue(value);
     let newSectionDisplayed = {
@@ -177,13 +174,12 @@ function App() {
       end: 8,
     };
     setSectionDisplayed(newSectionDisplayed);
-    console.log(value);
-   }
+  };
 
   return (
     <Box bgColor="#05292e">
       <Box
-        id='imagen_principal'
+        id="imagen_principal"
         h="350px"
         w="99vw"
         bgImage={bgRickAndMorty}
@@ -208,20 +204,29 @@ function App() {
               placeholder={"search"}
               bgColor="white"
               type="text"
-              onChange={filterBy === "id_search" ? handleOnChange : realtimeSearch}
+              onChange={
+                filterBy === "id_search" ? handleOnChange : realtimeSearch
+              }
               onClick={handleResetForm}
               value={filterBy === "id_search" ? inputValue : searchValue}
               list="locations"
               id="options"
             />
-            
-           <Box as='div' bgColor='red'> <datalist id="locations" >
-  {apiResponse?.results?.map((location, index) => (
-    <option key={index} value={location.name} style={{backgrounColor:'red', height:'500px'}} >
-    {location.name}
-  </option>
-  ))}
-</datalist></Box>
+
+            <Box as="div" bgColor="red">
+              {" "}
+              <datalist id="locations">
+                {apiResponse?.results?.map((location, index) => (
+                  <option
+                    key={index}
+                    value={location.name}
+                    style={{ backgrounColor: "red", height: "500px" }}
+                  >
+                    {location.name}
+                  </option>
+                ))}
+              </datalist>
+            </Box>
             <Select
               onChange={(e) => handleSelectOnChange(e)}
               as="select"

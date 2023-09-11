@@ -13,28 +13,27 @@ import {
 import React, { useEffect } from "react";
 import useFetch from "../hooks/useFetch";
 
-const Cards = ({ planetInfo, index}) => {
-
-  console.log(planetInfo)
+const Cards = ({ planetInfo, index }) => {
+  console.log(planetInfo);
   const url = planetInfo?.residents[index];
-  const [resident, getResident ] = useFetch(url)
+  const [resident, getResident] = useFetch(url);
 
-  useEffect(() =>{
-      getResident()
-  }, [url])
+  useEffect(() => {
+    getResident();
+  }, [url]);
 
-
-
-  return(
-    resident && (<Card
+  return (
+    resident && (
+      <Card
         direction={{ base: "column", sm: "row" }}
         overflow="hidden"
         variant="elevated"
         display="flex"
         flexDirection="column"
-        color='white'
+        color="white"
         w="100%"
-          bgColor='#072226'
+        bgColor="#072226"
+        boxSizing="border-box"
       >
         <Image
           objectFit="cover"
@@ -54,22 +53,42 @@ const Cards = ({ planetInfo, index}) => {
           borderRightRadius="10px"
         >
           {" "}
-          <Circle bg={resident.status=== "Dead" && 'red' || resident.status=== "Alive" && 'green' ||  resident.status=== "unknown" && 'gray'} w="3" h="3"></Circle> 
-          <Text color='black'>{resident.status}</Text>
+          <Circle
+            bg={
+              (resident.status === "Dead" && "red") ||
+              (resident.status === "Alive" && "green") ||
+              (resident.status === "unknown" && "gray")
+            }
+            w="3"
+            h="3"
+          ></Circle>
+          <Text color="black">{resident.status}</Text>
         </Box>
-  
+
         <Stack>
           <CardBody>
-            <Heading size="md">{resident.name}</Heading>
+            <Heading size="md" textAlign='center' mb='5px'>{resident.name}</Heading>
             <hr />
-            <Text> {resident.species} </Text>
-            <Text> {resident.origin.name} </Text>
-            <Text> {resident.episode.length} </Text>
+            <Box id="text_container" pt="25px" >
+              <Text fontSize="13px" color="gray.400" ml="15px">
+                Specie
+              </Text>
+              <Text> {resident.species} </Text>
+              <Text fontSize="13px" color="gray.400" ml="15px">
+                Origin
+              </Text>
+              <Text> {resident.origin.name} </Text>
+              <Text fontSize="13px" color="gray.400" ml="15px">
+                Episodes where appear
+              </Text>
+              <Text> {resident.episode.length} </Text>
+            </Box>
           </CardBody>
           <CardFooter></CardFooter>
         </Stack>
-      </Card>) 
-  )
+      </Card>
+    )
+  );
 };
 
 export default Cards;
